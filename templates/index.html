@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero-body">
+    <div class="container">
+          <div class="intro-columns">
+            <div class="intro-column is-video">
+                <div class="bd-book-content">
+                    <header class="block bd-book-header">
+                        <strong class="tag is-success">New</strong>
+
+                        <h3 class="title">**项目展示平台 😲</h3>
+                    </header>
+                <div class="block bd-book-description is-size-9">
+                    <p>截止到目前已有 <strong>333</strong>人提交<br>
+                    共提交 <strong>12345 </strong> 次</p>
+                </div>
+                <div class="bd-book-tags">
+                    <div class="field is-grouped is-grouped-multiline">
+                        <div class="control">
+                            <span class="tag is-white has-text-grey is-paddingless">你可以上传:</span>
+                    </div>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <strong class="tag has-text-danger">zip</strong>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <strong class="tag has-text-info">html</strong>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="tags has-addons">
+                            <strong class="tag has-text-success">css</strong>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <span class="tag is-white has-text-grey is-paddingless">or</span>
+                     </div>
+                    <div class="control">
+                        <div class="tags has-addons">
+                        <strong class="tag has-text-orange">js</strong>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+                </div>
+            </div>
+    <div class="intro-column is-content">
+        <br>
+        <br>
+        <div class="intro-content">
+        <h1 class="title intro-title">
+            {% if user.is_authenticated %}
+                <p> 欢迎 {{user.username}} </p>
+            {% else %}
+                <p> 请登录 !</p>
+            {% endif %}
+        </h1>
+        <h2 class="title intro-title">
+            你可以提交自己的<strong>web项目</strong>,<br>     或者浏览其他人的项目
+
+        </h2>
+        
+        <nav class="intro-buttons">
+          <a class="button is-primary is-large" href="#">
+            <span>
+                {% if user.is_authenticated %}
+                    <strong> 提交</strong>
+                {% else %}
+                    <strong> 登陆/注册 </strong>
+                {% endif %}
+            </span>
+          </a>
+          <a class="button is-light is-large" href="#">
+            <span>
+              <span>View</span>
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+ </div>
+</div>
+{% endblock %}

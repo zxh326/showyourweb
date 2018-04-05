@@ -1,0 +1,61 @@
+.is-cover {
+  background-image: url("https://bulma.io/images/hab/lightpaperfibers_@2X.png");
+  background-repeat: repeat;
+  background-size: width:100%;height:100%;top:0px;left:0px;
+}
+.bd-book-content {
+  background-color: white;
+  -webkit-box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
+  max-width: 520px;
+  padding: 3rem;
+}
+.intro-content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 640px;
+}
+.intro-columns {
+  top: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.intro-column {
+  width: calc(50% - 1.5rem);
+}
+.intro-column.is-content {
+  margin-right: 1.5rem;
+}
+.intro-column.is-video {
+  margin-left: 1.5rem;
+}
+.intro-title {
+  font-size: 2.25rem;
+}
+.intro-buttons {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.container {
+  margin: 0 auto;
+  position: relative;
+}
+.hero-body {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  padding: 3rem 1.5rem;
+}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content%}
+
+<div class="hero-body">
+<div class="container">
+      <div class="intro-columns">
+        <div class="intro-column is-video">
+            <div class="bd-book-content">
+                <header class="block bd-book-header">
+                    <strong class="tag is-info">请登录</strong>
+
+                    {# <h3 class="title"></h3>                    #}
+                    <form action="/auth/login" method="POST">
+                        {% csrf_token %}
+                        <div class="field">
+                          <label class="label">学号</label>
+                          <div class="control">
+                                {{ form.username }}
+                          </div>
+                        </div>
+                        
+                        <div class="field">
+                          <label class="label">密码</label>
+                          <div class="control">
+                                {{ form.password }}
+                          </div>
+                        </div>
+                        {% if status %}
+                            <strong class="tag is-info">{{message}}</strong>
+                        {%else%}
+                            <strong class="tag is-info">{{message}}</strong>
+                        {% endif %}
+                       <div class="control">
+                         <button class="button is-success" type="submit">Submit</button>
+                       </div>
+                        
+                    </form>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
