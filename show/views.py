@@ -1,6 +1,7 @@
 from .form import *
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect  
 
 # Create your views here.
 
@@ -8,6 +9,8 @@ def index(request):
     return render(request,'index.html')
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -22,7 +25,8 @@ def login_view(request):
                     'message': '登陆成功',
                     'status': True
                 }
-                return render(request, 'index.html', context)
+                # return render(request, 'index.html', context)
+                return HttpResponseRedirect(request.POST.get('next', '/') or '/')
             else:
                 form = LoginForm()
                 context = {
