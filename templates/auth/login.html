@@ -10,8 +10,9 @@
                     <strong class="tag is-info">请登录</strong>
 
                     {# <h3 class="title"></h3>                    #}
-                    <form action="/auth/login?next={{ redirect_to }}" method="POST">
+                    <form action="{% url 'login' %}?next={{ redirect_to }}" method="POST">
                         {% csrf_token %}
+                        {{ regstatus }}
                         <div class="field">
                           <label class="label">学号</label>
                           <div class="control">
@@ -30,6 +31,7 @@
                             <p class="help is-danger">{{message}}</p>
                         {% endif %}
                        <div class="control">
+                        <a href="{% url 'reg' %}" class="button is-info">注册</a>
                          <button class="button is-success" type="submit">Submit</button>
                        </div>
                         

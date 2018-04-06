@@ -8,6 +8,22 @@ from django.http import HttpResponseRedirect
 def index(request):
     return render(request,'index.html')
 
+
+def register_view(request):
+    if request.method == 'POST':
+        user_form = RegisterForm(request.POST)
+
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            # profile = UserProfile.objects.create(user=new_user)
+            return HttpResponseRedirect('/auth/login',{'regstatus':'注册成功'})
+    else:
+        user_form = RegisterForm()
+    return render(request, 'auth/reg.html', {'form': user_form})
+
+
 def login_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -39,3 +55,8 @@ def login_view(request):
         context = {'form': LoginForm(), 'status': True}
 
     return render(request,'auth/login.html',context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')

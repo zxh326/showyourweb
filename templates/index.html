@@ -65,20 +65,26 @@
         
         <nav class="intro-buttons">
           
-          <a class="button is-primary is-large" href="/auth/login">
-            <span>
-                {% if user.is_authenticated %}
-                    <strong> 提交</strong>
-                {% else %}
-                    <strong> 登陆/注册 </strong>
-                {% endif %}
-            </span>
-          </a>
-          <a class="button is-light is-large" href="#">
-            <span>
-              <span>View</span>
-            </span>
-          </a>
+          <div class="bd-more-loves">
+              <p class="bd-more-loves-container">
+                <a class="button is-medium is-success bd-rainbow" href="{% url "login" %}">
+                    {% if user.is_authenticated %}
+                        <strong> 提交</strong>
+                    {% else %}
+                        <strong> 登陆/注册 </strong>
+                    {% endif %}
+                </a>
+              </p>
+              <div class="hiden">&#12288;&#12288; </div>
+              <p class="bd-more-loves-container">
+                <a class="button is-medium is-danger bd-rainbow" href="#">
+                  <span> 浏览其他人的 <strong>项目</strong> 🤗</span>
+                </a>
+              </p>
+            </div>
+          <div class="bd-more-loves">
+              
+            </div>
         </nav>
       </div>
     </div>

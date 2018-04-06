@@ -9,40 +9,57 @@
     <link rel="stylesheet" type="text/css" href="{% static "show/css/main.css" %}">
   </head>
     <body>
-    <nav class="navbar is-transparent">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">**项目展示平台</a>
-        </div>
-
-        <div id="navMenuTransparent" class="navbar-menu">
-            <div class="navbar-start">
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        用户
-                    </a>
-                    <div class="navbar-dropdown is-boxed">
-                        {% if user.is_authenticated %}
-                            <a class="navbar-item" href="#">1</a>
-                            <a class="navbar-item" href="#">2</a>
-                        {% else %}
-                            <a class="navbar-item" href="#">3</a>
-                        {% endif %}
+        <nav class="navbar is-transparent">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/#">正义的</a>
+                    <div class="navbar-burger burger is-active" onclick="toggleClass(this, 'is-active')">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
-                </div> 
-                <a class="navbar-item" href="https://www.qiyichao.cn/about.html" title="关于"> <span class="bd-emoji">⭐️</span> 关于</a>
-            </div>
-            <div class="navbar-end">
-            </div>
-        </div>
-    </div>
-    </nav>
+                </div>
+                <div id="navMenuTransparent" class="navbar-menu is-active">
+                    <div class="navbar-start">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                用户
+                            </a>
+                            <div class="navbar-dropdown is-boxed">
+                                <a class="navbar-item" href="#">我的项目</a>
+                                <a class="navbar-item" href="#">个人资料</a>
+                            </div>
+                        </div>
+                            <a class="navbar-item" href="/#" title="关于"><span class="bd-emoji">⭐️关于</span></a>
+                        </div>
 
-    <div class="main">
+                    <div class="navbar-end">
+                        {% if user.is_authenticated %}
+                            <a class="navbar-item" href="{% url 'logout'%}">注销 </a>
+                        {% else %}
+                            <a class="navbar-item" href="{% url 'login'%}">登陆 </a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <div class="main is-flex-mobile is-flex-desktop-only is-flex-desktop-only ">
         {% block content %}
 
         {% endblock %}
   </div>
-
+<script type="text/javascript">
+            // 菜单开关
+            function toggleClass(ele, cls) {
+                let ele2 = document.getElementById('navMenuTransparent')
+                if (hasClass(ele, cls)) {
+                    removeClass(ele2, cls);
+                    removeClass(ele, cls);
+                } else {
+                    addClass(ele, cls);
+                    addClass(ele2, cls);
+                }
+            }
+</script>
 </body>
 </html>
