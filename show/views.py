@@ -148,9 +148,23 @@ def project_view(request):
 
 
 def share_view(request, name=None, pname=None):
-    context = {
-        'title': pname + '  --预览',
-        'name': name,
-        'pname' : pname
-    }
-    return render(request, 'share.html', context)
+    if name == None:
+        info = []
+        info_pool = UserFiles.objects.all()
+        for i in info_pool:
+            info.append({'name': i.user.username,
+                         'pname': i.upload_name, 
+                         'time': i.last_upload_time,
+                         'url':i.upload_files})
+
+        context = {
+            'info':info,
+        }
+        return render(request, 'sall.html', context)
+    else:    
+        context = {
+            'title': pname + '  --预览',
+            'name': name,
+            'pname' : pname
+        }
+        return render(request, 'share.html', context)

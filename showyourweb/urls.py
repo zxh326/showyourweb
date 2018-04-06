@@ -24,6 +24,7 @@ urlpatterns = [
     path('auth/logout', logout_view, name='logout'),
     path('usr/upload', upload_view, name='upload'),
     path('usr/project', project_view, name='project'),
+    path('usr/share', share_view, name='sall'),
     path('usr/share/<str:name>/<str:pname>', share_view, name='share'),
 
 ]
