@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block content %}
-    <div class="hero-body">
+ <div class="hero-body">
     <div class="container">
           <div class="intro-columns">
             <div class="intro-column is-video">
                 <div class="bd-book-content">
                     <header class="block bd-book-header">
-                        <strong class="tag is-success">New</strong>
-
+                        <span class="tag">New!</span>
+                        <span class="tag is-info">测试版</span>
                         <h3 class="title">**项目展示平台 😲</h3>
                     </header>
                 <div class="block bd-book-description is-size-9">
-                    <p>截止到目前已有 <strong>333</strong>人提交<br>
-                    共提交 <strong>12345 </strong> 次</p>
+                    <p>截止到目前已有 <strong><span class="tag">{{ pcount }} </span></strong>人提交<br>
+                    共提交项目 <strong> <span class="tag">{{ scount }} </span></strong> 个, 共计<strong> <span class="tag">{{ count }} </span> </strong> 次</p>
                 </div>
                 <div class="bd-book-tags">
                     <div class="field is-grouped is-grouped-multiline">
@@ -67,13 +67,15 @@
           
           <div class="bd-more-loves">
               <p class="bd-more-loves-container">
-                <a class="button is-medium is-success bd-rainbow" href="{% url "login" %}">
                     {% if user.is_authenticated %}
-                        <strong> 提交</strong>
+                        <a class="button is-medium is-success bd-rainbow" href="{% url "upload" %}">
+                            <span><strong> 提交</strong></span>
+                        </a>
                     {% else %}
-                        <strong> 登陆/注册 </strong>
+                        <a class="button is-medium is-success bd-rainbow" href="{% url "login" %}">
+                            <span><strong> 登陆/注册 </strong></span>
+                        </a>
                     {% endif %}
-                </a>
               </p>
               <div class="hiden">&#12288;&#12288; </div>
               <p class="bd-more-loves-container">
@@ -82,12 +84,46 @@
                 </a>
               </p>
             </div>
-          <div class="bd-more-loves">
-              
-            </div>
         </nav>
       </div>
     </div>
  </div>
+</div>
+</div>
+
+<div class="container">
+<div class="column is-8">
+{% for i in info %} 
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-64x64">
+            <img src="{% static 'show/img/default.jpg' %}" alt="Image">
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{i.name}}</strong> <small>{{ i.time }}</small> <small></small>
+          <br>
+          向他的  <strong> <span class="tag is-info"> {{i.pname }} </span> </strong> 项目提交了一次修改
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item" href="#">
+            <i class="fa fa-reply" aria-hidden="true"></i>
+          </a>
+          <a class="level-item" href="#">
+            <i class="fa fa-heart"  aria-hidden="true"></i>
+          </a> 
+      </div>
+      </nav>
+    </div>
+  </article>
+</div>
+{% endfor %}
+
+</div>
 </div>
 {% endblock %}

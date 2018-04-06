@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-body">
+<div class="container">
+      <div class="intro-columns">
+        <div class="intro-column is-video">
+            <div class="bd-book-content">
+                <header class="block bd-book-header">
+                    <strong class="tag is-info">上传你的项目</strong><br>
+                    <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" accept-charset="utf-8" >
+                        {% csrf_token %}
+                        <div class="field">
+                          <label class="label">项目名称</label>
+                          <div class="control">
+                                {{ form.uploadname }}
+                          </div>
+                        </div>
+                        
+                        <div class="field">
+                          <label class="label">项目文件</label>
+                          <div class="control">
+                                {{ form.uploadfile }}
+                          </div>
+                        </div>
+                        {% if status %}
+                        {%else%}
+                            <p class="help is-danger">{{message}}</p>
+                        {% endif %}
+                        <p class="notification is-primary">
+                            <strong class="tag is-danger">Tips</strong><br>
+                            暂不支持非压缩包形式的多文件上传,但是只要你保持项目名字一样,即可以多次上传/修(覆)改项目文件
+                        </p>
+                        {% if not status %}
+                          <p class="notification is-danger">
+                              <strong>
+                                上传失败,此文件不在上传范围之内
+                              </strong>
+                          </p>
+                        {% endif %}
+                       <div class="control">
+                            <button class="button is-success" type="submit">Submit</button>
+                       </div>    
+                    </form>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

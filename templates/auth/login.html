@@ -8,8 +8,6 @@
             <div class="bd-book-content">
                 <header class="block bd-book-header">
                     <strong class="tag is-info">请登录</strong>
-
-                    {# <h3 class="title"></h3>                    #}
                     <form action="{% url 'login' %}?next={{ redirect_to }}" method="POST">
                         {% csrf_token %}
                         {{ regstatus }}
@@ -31,8 +29,8 @@
                             <p class="help is-danger">{{message}}</p>
                         {% endif %}
                        <div class="control">
+                         <button class="button is-success" type="submit">登陆</button>
                         <a href="{% url 'reg' %}" class="button is-info">注册</a>
-                         <button class="button is-success" type="submit">Submit</button>
                        </div>
                         
                     </form>

@@ -89,3 +89,26 @@ class LoginForm(forms.Form):
             raise forms.ValidationError(u"用户名和密码为必填项")
         else:
             cleaned_data = super(LoginForm, self).clean()
+
+
+class UploadForm(forms.Form):
+    """docstring for UploadForm"""
+    uploadname = forms.CharField(
+        label=u"项目名字",
+        error_messages={'required': u'请输入项目名字'},
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'type':'text',
+                'placeholder': "eg: 简历"
+            }
+        ),
+    )
+
+    uploadfile = forms.FileField(
+        label='项目文件',
+        widget=forms.FileInput(
+
+            )
+        )
+        

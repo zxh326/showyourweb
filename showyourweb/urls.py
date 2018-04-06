@@ -21,5 +21,6 @@ urlpatterns = [
     path('',index),
     path('auth/reg', register_view, name='reg'),
     path('auth/login', login_view, name='login'),
-    path('auth/logout', logout_view, name='logout')
+    path('auth/logout', logout_view, name='logout'),
+    path('upload', upload_view, name='upload')
 ]
