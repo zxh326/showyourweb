@@ -23,10 +23,6 @@
                                 {{ form.uploadfile }}
                           </div>
                         </div>
-                        {% if status %}
-                        {%else%}
-                            <p class="help is-danger">{{message}}</p>
-                        {% endif %}
                         <p class="notification is-primary">
                             <strong class="tag is-danger">Tips</strong><br>
                             暂不支持非压缩包形式的多文件上传,但是只要你保持项目名字一样,即可以多次上传/修(覆)改项目文件
@@ -34,12 +30,14 @@
                         {% if not status %}
                           <p class="notification is-danger">
                               <strong>
-                                上传失败,此文件不在上传范围之内
+                                {{ message }}
                               </strong>
                           </p>
                         {% endif %}
                        <div class="control">
-                            <button class="button is-success" type="submit">Submit</button>
+                            <button class="button is-success" type="submit">上传</button>
+                            &#12288;
+                            <a class="button is-info" href="{% url "project" %}">我的项目</a>
                        </div>    
                     </form>
                 </header>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>{{title}}</title>
     <link href="https://cdn.bootcss.com/bulma/0.6.2/css/bulma.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static "show/css/main.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "show/css/font-awesome.min.css" %}">
@@ -35,7 +35,7 @@
                                 用户
                             </a>
                             <div class="navbar-dropdown is-boxed">
-                                <a class="navbar-item" href="#">我的项目</a>
+                                <a class="navbar-item" href="{% url "project" %}">我的项目</a>
                                 <a class="navbar-item" href="#">个人资料</a>
                             </div>
                         </div>
@@ -52,6 +52,7 @@
                 </div>
             </div>
         </nav>
+
     <div class="main is-flex-mobile is-flex-desktop-only is-flex-desktop-only ">
         {% block content %}
 
@@ -60,23 +61,46 @@
 
 <script type="text/javascript" color="72,186,255" opacity="1.7" zindex="-2" count="99" src="{% static 'show/js/nest.js' %}"></script>
 <script type="text/javascript">
-            // 菜单开关
-            function toggleClass(ele, cls) {
-                let ele2 = document.getElementById('navMenuTransparent')
-                if (hasClass(ele, cls)) {
-                    removeClass(ele2, cls);
-                    removeClass(ele, cls);
-                } else {
-                    addClass(ele, cls);
-                    addClass(ele2, cls);
-                }
+        function hasClass(ele, cls) {
+            return ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
+        }
+
+        function addClass(ele, cls) {
+            if (!this.hasClass(ele, cls)) ele.className += " " + cls;
+        }
+
+        function removeClass(ele, cls) {
+            if (hasClass(ele, cls)) {
+                let reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
+                ele.className = ele.className.replace(reg, " ");
             }
+        }
+
+        function toggleClass(ele, cls) {
+            let ele2 = document.getElementById('navMenuTransparent')
+            if (hasClass(ele, cls)) {
+                removeClass(ele2, cls);
+                removeClass(ele, cls);
+            } else {
+                addClass(ele, cls);
+                addClass(ele2, cls);
+            }
+        }
 </script>
 
-<div class="content has-text-centered" id="footer">
+<!-- <div class="content has-text-centered" id="footer">
         <p>
             ©<a href="#">Web 共享项目</a> 由 <a href="#">Django </a> & <a href="https://bulma.io/">bulma</a> 驱动.
         </p>
-</div>
+</div> -->
+<footer id="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+        <p>
+            ©<a href="#">Web 共享项目</a> 由 <a href="#">Django </a> & <a href="https://bulma.io/">bulma</a> 驱动.
+        </p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

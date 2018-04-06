@@ -108,7 +108,9 @@ class UploadForm(forms.Form):
     uploadfile = forms.FileField(
         label='项目文件',
         widget=forms.FileInput(
-
+            attrs={
+                'multiple':"multiple",
+            }
             )
         )
         
