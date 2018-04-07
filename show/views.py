@@ -137,7 +137,7 @@ def upload_view(request):
     return render(request, 'upload.html', context)
 
 
-@login_required(login_url='auth/login')
+@login_required(login_url='/auth/login')
 def project_view(request):
     info = []
     pj_pool = UserFiles.objects.filter(user=request.user)

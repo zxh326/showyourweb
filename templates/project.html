@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="container">
+<div class="column is-8">
+{% for i in info %}
+<div class="box">
+  <article class="media">
+
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <h4><strong>{{i.name}} </strong> </h4> <small>@{{ user.username }}</small> <small></small>
+          <br>
+         <span> 最后更新</span> : <span> {{i.time}}</span>
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-center">
+          <a class="button is-success" href="#">
+            分享
+          </a>
+          <!-- &#12288; -->
+          <a class="button is-info" href="/usr/share{{i.url}}">
+            预览
+          </a>
+          <!-- &#12288; -->
+          <a class="button is-outline" href="#">
+            删除
+          </a> 
+      </div>
+      </nav>
+    </div>
+  </article>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
