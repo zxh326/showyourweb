@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+
 from django.conf import settings
 # Create your views here.
 STATICFILES_DIRS = settings.STATICFILES_DIRS
@@ -142,7 +144,10 @@ def project_view(request):
     info = []
     pj_pool = UserFiles.objects.filter(user=request.user)
     for i in pj_pool:
-        info.append({'name':i.upload_name,'time': i.last_upload_time,'url':i.upload_files})
+        info.append({'id':i.id, 
+                     'name':i.upload_name, 
+                     'time': i.last_upload_time,
+                     'url':i.upload_files})
 
     return render(request, 'project.html', {'info':info})
 
@@ -152,7 +157,8 @@ def share_view(request, name=None, pname=None):
         info = []
         info_pool = UserFiles.objects.all()
         for i in info_pool:
-            info.append({'name': i.user.username,
+            info.append({'id': i.id,
+                         'name': i.user.username,
                          'pname': i.upload_name, 
                          'time': i.last_upload_time,
                          'url':i.upload_files})
@@ -168,3 +174,21 @@ def share_view(request, name=None, pname=None):
             'pname' : pname
         }
         return render(request, 'share.html', context)
+
+
+@login_required(login_url='/auth/login')
+def delete_view(request, pid=None):
+    pid = int(request.GET.get('pid',0))
+    try:
+        uf = UserFiles.objects.get(id=pid)
+        if request.user == uf.user or request.user.is_superuser:    
+            uf.delete()
+            # delete files
+            return JsonResponse({'status': 0})
+        else:
+            return JsonResponse({'status': -2})
+    except Exception as e:
+        print (str(e))
+        return JsonResponse({'status': -1})
+
+    return JsonResponse({'status': 1})

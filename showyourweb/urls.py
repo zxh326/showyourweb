@@ -26,5 +26,5 @@ urlpatterns = [
     path('usr/project', project_view, name='project'),
     path('usr/share', share_view, name='sall'),
     path('usr/share/<str:name>/<str:pname>', share_view, name='share'),
-
+    path('usr/delete', delete_view, name='delete'),
 ]

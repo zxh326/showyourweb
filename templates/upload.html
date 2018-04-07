@@ -23,10 +23,15 @@
                                 {{ form.uploadfile }}
                           </div>
                         </div>
-                        <p class="notification is-primary">
-                            <strong class="tag is-danger">Tips</strong><br>
+                        <article class="message is-info">
+                          <div class="message-header">
+                            Tips
+                            <!-- <button class="delete"></button> -->
+                          </div>
+                          <div class="message-body">
                             暂不支持非压缩包形式的多文件上传,但是只要你保持项目名字一样,即可以多次上传/修(覆)改项目文件
-                        </p>
+                          </div>
+                        </article>
                         {% if not status %}
                           <p class="notification is-danger">
                               <strong>
@@ -35,7 +40,12 @@
                           </p>
                         {% endif %}
                        <div class="control">
-                            <button class="button is-success" type="submit">上传</button>
+                            <button class="button is-success is-focused" type="submit">
+                              <span class="icon is-small">
+                                <i class="fa fa-check"></i>
+                              </span>
+                              <span>上传</span>
+                            </button>
                             &#12288;
                             <a class="button is-info" href="{% url "project" %}">我的项目</a>
                        </div>    

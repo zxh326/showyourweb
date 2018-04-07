@@ -14,7 +14,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <h4><strong>{{i.name}} </strong> </h4> <small>@{{ user.username }}</small> <small></small>
+          <h4><strong>{{i.pname}} </strong> </h4> <small>@{{ i.name }}</small> <small></small>
           <br>
          <span> 最后更新</span> : <span> {{i.time}}</span>
         </p>
@@ -29,9 +29,14 @@
             预览
           </a>
           <!-- &#12288; -->
-          <a class="button is-outline" href="#">
-            删除
-          </a> 
+          <a class="button is-primary" href="#">
+            点赞
+          </a>
+          {% if user.is_superuser %}
+            <a class="button is-outline" onclick="active({{i.id}})">
+              删除
+            </a>
+          {% endif %}
       </div>
       </nav>
     </div>
@@ -39,5 +44,43 @@
 </div>
 {% endfor %}
 </div>
+<div class="modal" id="deleteconfirm">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">确认删除</p>
+      <button class="delete" aria-label="close" onclick="unactive()"></button>
+    </header>
+    <section class="modal-card-body">
+        你确定要删除此项目吗?
+    </section>
+    <footer class="modal-card-foot">
+      <button id="confirm" class="button is-success" value="" onclick="deletet(this)">确定</button>
+      <button class="button" onclick="unactive()" >取消</button>
+    </footer>
+  </div>
+</div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function active(pid){
+        let ele2 = document.getElementById('deleteconfirm');
+        let cbu = document.getElementById('confirm');
+        cbu.value = pid;
+        ele2.className += ' is-active';
+    }
+    function unactive(){
+        let ele = document.getElementById('deleteconfirm')
+        let reg = 'is-active'
+        ele.className = ele.className.replace(reg, "");
+    }
+    function deletet(ele){
+        var pid = ele.value;
+        $.get("{% url 'delete' %}", {'pid':pid},
+            function(data){
+                location.reload(true);
+        });
+    }
+</script>
 </div>
 {% endblock %}
