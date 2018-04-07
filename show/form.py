@@ -3,6 +3,16 @@ from django import forms
 from django.contrib.auth.models import User
 
 class RegisterForm(forms.ModelForm):
+    last_name = forms.CharField(
+        label='用户名',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'type':'text',
+                'placeholder': "用户名"
+            }
+        ),
+    )
     username = forms.CharField(
         label=u"学号",
         error_messages={'required': u'请输入学号'},
@@ -41,7 +51,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'last_name')
 
     def clean_password2(self):
         cd = self.cleaned_data
@@ -114,3 +124,39 @@ class UploadForm(forms.Form):
             )
         )
         
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'last_name','email')
+
+    username = forms.CharField(
+        label=u"学号",
+        error_messages={'required': u'请输入学号'},
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'type':'text',
+                'readonly':True
+            }
+        ),
+    )
+    last_name = forms.CharField(
+        label='用户名',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'type':'text',
+            }
+        ),
+    )
+
+    email = forms.CharField(
+        label='邮箱',
+        widget=forms.EmailInput(
+            attrs={
+            'class': 'input',
+            'type':'email',
+            }
+        )
+    )

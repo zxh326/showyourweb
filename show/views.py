@@ -15,16 +15,16 @@ STATICFILES_DIRS = settings.STATICFILES_DIRS
 def index(request):
     pcount = scount = count = 0
     res = UserFiles.objects.raw(
-        "select 1 as id,sum(upload_count) as sum,count(*) as count from show_userfiles group by user_id")
+        "select 1 as id,sum(submit_count) as sum,count(*) as count from show_userfiles group by user_id")
     for i in res:
         pcount += 1
         scount += i.count
         count += i.sum
     info = []
-    info_pool = UserFiles.objects.all()[:10]
+    info_pool = UserFiles.objects.filter(is_ective=0)[:10]
     for i in info_pool:
-        info.append({'name': i.user.username,
-                     'pname': i.upload_name, 'time': i.last_upload_time})
+        info.append({'name': i.user.last_name,
+                     'pname': i.project_name, 'time': i.last_submit_time})
     context = {
         'title': 'Test', 
         'count': count, 
@@ -116,12 +116,12 @@ def upload_view(request):
         if handle_upload_files(request.FILES['uploadfile'], path):
             try:
                 uf = UserFiles.objects.get(
-                    user=request.user, upload_name=upname)
-                uf.upload_count += 1
+                    user=request.user, project_name=upname, is_ective=0)
+                uf.submit_count += 1
                 uf.save()
             except Exception:
-                UserFiles(user=request.user, upload_name=upname,
-                          upload_files='/' + request.user.username + '/' + upname).save()
+                UserFiles(user=request.user, project_name=upname,
+                          file_path='/' + request.user.username + '/' + upname).save()
             context = {
                 'form': UploadForm(), 
                 'status': False, 
@@ -142,26 +142,32 @@ def upload_view(request):
 @login_required(login_url='/auth/login')
 def project_view(request):
     info = []
-    pj_pool = UserFiles.objects.filter(user=request.user)
+    nullflag = False
+    pj_pool = UserFiles.objects.filter(user=request.user,is_ective=0)
     for i in pj_pool:
         info.append({'id':i.id, 
-                     'name':i.upload_name, 
-                     'time': i.last_upload_time,
-                     'url':i.upload_files})
-
-    return render(request, 'project.html', {'info':info})
+                     'name':i.project_name, 
+                     'time': i.last_submit_time,
+                     'url':i.file_path})
+    if len(info) == 0:
+        nullflag = True
+    context = {
+        'info': info, 
+        'nullflag': nullflag
+    }
+    return render(request, 'project.html', context)
 
 
 def share_view(request, name=None, pname=None):
     if name == None:
         info = []
-        info_pool = UserFiles.objects.all()
+        info_pool = UserFiles.objects.filter(is_ective=0)
         for i in info_pool:
             info.append({'id': i.id,
-                         'name': i.user.username,
-                         'pname': i.upload_name, 
-                         'time': i.last_upload_time,
-                         'url':i.upload_files})
+                         'name': i.user.last_name,
+                         'pname': i.project_name, 
+                         'time': i.last_submit_time,
+                         'url':i.file_path})
 
         context = {
             'info':info,
@@ -181,8 +187,10 @@ def delete_view(request, pid=None):
     pid = int(request.GET.get('pid',0))
     try:
         uf = UserFiles.objects.get(id=pid)
-        if request.user == uf.user or request.user.is_superuser:    
-            uf.delete()
+        if request.user == uf.user or request.user.is_superuser:
+            uf.is_ective = 1
+            uf.save()
+            # uf.delete()
             # delete files
             return JsonResponse({'status': 0})
         else:
@@ -192,3 +200,31 @@ def delete_view(request, pid=None):
         return JsonResponse({'status': -1})
 
     return JsonResponse({'status': 1})
+
+
+@login_required(login_url='/auth/login')
+def edit_view(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        save_flag  = request.POST['username'] == request.user.username
+        if save_flag and user_form.is_valid():
+            user_form.save()
+            print (save_flag)
+            context = {
+                'user_form': user_form,
+                'editflag': False,
+                'message': '修改成功'
+            }
+        else:
+            context = {
+                'user_form': user_form,
+                'editflag': False,
+                'message': '失败'
+            }
+    else:
+        context = {
+            'user_form': UserEditForm(instance=request.user),
+            'editflag': True
+        }
+    return render(request,'auth/edit.html', context)

@@ -29,7 +29,7 @@
             预览
           </a>
           <!-- &#12288; -->
-          <a class="button is-primary" href="#">
+          <a class="button is-primary" href="#" id="div_toast" onclick="showtoastFromDiv()">
             点赞
           </a>
           {% if user.is_superuser %}
@@ -80,6 +80,13 @@
             function(data){
                 location.reload(true);
         });
+    }
+    function showtoastFromDiv(){
+      $('#div_toast').show();
+      $('#div_toast').toast({
+        content: 'text',
+        duration: 1000
+     })
     }
 </script>
 </div>

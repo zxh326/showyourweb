@@ -7,6 +7,18 @@
 
 <div class="container">
 <div class="column is-8">
+{% if nullflag%}
+    <article class="message is-info">
+      <div class="message-header">
+        <p>Tips</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        你还没有上传项目哦<br><br><br>
+        <a href="{% url 'upload' %}" class="button is-info">点我去上传</a>
+      </div>
+    </article>
+{% endif %}
 {% for i in info %}
 <div class="box">
   <article class="media">
@@ -14,7 +26,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <h4><strong>{{i.name}} </strong> </h4> <small>@{{ user.username }}</small> <small></small>
+          <h4><strong>{{i.name}} </strong> </h4> <small>@{{ user.last_name }}</small> <small></small>
           <br>
          <span> 最后更新</span> : <span> {{i.time}}</span>
          <br>

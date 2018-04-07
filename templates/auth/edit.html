@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero-body">
+<div class="container">
+      <div class="intro-columns">
+        <div class="intro-column is-video  is-flex-mobile">
+            <div class="bd-book-content is-flex-mobile">
+                <header class="block bd-book-header">
+                    <strong class="tag is-info">个人信息</strong>
+
+                    {# <h3 class="title"></h3>                    #}
+                    <form action="{% url "edit" %}" method="POST" class="is-flex-tablet-only">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }} 
+                        {% for field in user_form %} 
+                
+                            <label class="label"> {{field.label_tag}}</label>
+                            <div class="control">
+                                {{ field }}
+                            </div>
+                            <p class="help is-warning"> 
+                                <span class="is-marginless"> {{ field.errors }} </span>
+                                {{ field.help_text|safe }} 
+                            </p>
+                        {% endfor %}
+                        {% if editflag %}
+                        {%else%}
+                            <p class="notification is-info is-big">{{message}}</p>
+                        {% endif %}
+                       <div class="control">
+                         <button class="button is-success is-big" type="submit">保存</button>
+                       </div>  
+                        
+                    </form>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

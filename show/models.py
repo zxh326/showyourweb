@@ -7,23 +7,25 @@ class UserFiles(models.Model):
     class Meta:
         verbose_name = "UserFiles"
         verbose_name_plural = "UserFiless"
-        ordering = ['-last_upload_time']
+        ordering = ['-last_submit_time']
 
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
         )
-
-    upload_name = models.CharField(
+    is_ective = models.IntegerField(
+        default=0
+        )
+    project_name = models.CharField(
         max_length=155,
         )
-    upload_files = models.CharField(
+    file_path = models.CharField(
         max_length=155,
         verbose_name='文件',
         )
-    last_upload_time = models.DateTimeField(
+    last_submit_time = models.DateTimeField(
         auto_now=True
     )
-    upload_count = models.IntegerField(
+    submit_count = models.IntegerField(
         default=1
         )

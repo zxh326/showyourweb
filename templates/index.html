@@ -57,7 +57,7 @@
         <div class="intro-content">
         <h1 class="title intro-title">
             {% if user.is_authenticated %}
-                <p> 欢迎 {{user.username}} </p>
+                <p> 欢迎 {{user.last_name}} </p>
             {% else %}
                 <p> 请登录 !</p>
             {% endif %}
@@ -108,7 +108,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{i.name}}</strong> <small>{{ i.time }}</small> <small></small>
+          <strong>@{{i.name}}</strong> <small>{{ i.time }}</small> <small></small>
           <br>
           向他的  <strong> <span class="tag is-info"> {{i.pname }} </span> </strong> 项目提交了一次修改
         </p>
