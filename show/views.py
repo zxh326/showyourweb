@@ -23,13 +23,13 @@ def index(request):
     for i in info_pool:
         info.append({'name': i.user.username,
                      'pname': i.upload_name, 'time': i.last_upload_time})
-        context = {
-            'title': 'Test', 
-            'count': count, 
-            'pcount': pcount, 
-            'scount': scount, 
-            'info': info
-        }
+    context = {
+        'title': 'Test', 
+        'count': count, 
+        'pcount': pcount, 
+        'scount': scount, 
+        'info': info
+    }
     return render(request, 'index.html', context)
 
 
