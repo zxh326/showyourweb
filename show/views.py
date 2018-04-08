@@ -24,7 +24,8 @@ def index(request):
     info_pool = UserFiles.objects.filter(is_ective=0)[:10]
     for i in info_pool:
         info.append({'name': i.user.last_name,
-                     'pname': i.project_name, 'time': i.last_submit_time})
+                     'pname': i.project_name, 
+                     'time': i.last_submit_time})
     context = {
         'title': 'Test', 
         'count': count, 
@@ -97,21 +98,32 @@ def upload_view(request):
             return False
 
         try:
+            old_path = os.getcwd()
             if not os.path.exists(path):
                 os.makedirs(path)
             with open(path + '/' + str(file), 'wb+') as f:
                 for chunk in file.chunks():
                     f.write(chunk)
-        
+
+            # begin unzip
+            if str(file).split('.')[-1] == allow_files[0]:
+                os.chdir(path)
+                import zipfile
+                with zipfile.ZipFile(str(file),'r') as f:
+                    f.extractall()
+
+            os.chdir(old_path)
+            # end unzip
             return True
         except Exception:
+            os.chdir(old_path)
             return False
 
     if request.method == 'POST':
         upname = request.POST['uploadname']
 
         path = os.path.join(
-            STATICFILES_DIRS[0], 'show', 'share', request.user.username, upname)
+            STATICFILES_DIRS[0], 'show', 'share', str(request.user.id), upname)
 
         if handle_upload_files(request.FILES['uploadfile'], path):
             try:
@@ -121,7 +133,7 @@ def upload_view(request):
                 uf.save()
             except Exception:
                 UserFiles(user=request.user, project_name=upname,
-                          file_path='/' + request.user.username + '/' + upname).save()
+                        file_path='/' + str(request.user.id)   + '/' + upname).save()
             context = {
                 'form': UploadForm(), 
                 'status': False, 

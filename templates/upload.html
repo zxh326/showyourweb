@@ -1,13 +1,16 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% block title %}
+    <title>上传你的项目</title>
+{% endblock %}
 {% block content %}
 <div class="hero-body">
 <div class="container">
       <div class="intro-columns">
-        <div class="intro-column is-video">
+        <div class="intro-column is-video is-four-fifths">
             <div class="bd-book-content">
                 <header class="block bd-book-header">
-                    <strong class="tag is-info">上传你的项目</strong><br>
+                    
                     <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" accept-charset="utf-8" >
                         {% csrf_token %}
                         <div class="field">
@@ -18,20 +21,22 @@
                         </div>
                         
                         <div class="field">
-                          <label class="label">项目文件</label>
-                          <div class="control">
-                                {{ form.uploadfile }}
+                          <div class="file is-left is-info">
+                            <label class="file-label">
+                                {{form.uploadfile}}
+                              <span class="file-cta">
+                                <span class="file-icon">
+                                  <i class="fa fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                  上传文件
+                                </span>
+                              </span>
+                              <span class="file-name" id="filename">
+                              </span>
+                            </label>
                           </div>
                         </div>
-                        <article class="message is-info">
-                          <div class="message-header">
-                            Tips
-                            <!-- <button class="delete"></button> -->
-                          </div>
-                          <div class="message-body">
-                            暂不支持非压缩包形式的多文件上传,但是只要你保持项目名字一样,即可以多次上传/修(覆)改项目文件
-                          </div>
-                        </article>
                         {% if not status %}
                           <p class="notification is-danger">
                               <strong>
@@ -53,8 +58,42 @@
                 </header>
             </div>
         </div>
+        <div class="is-content">
+            <article class="message is-info">
+              <div class="message-header">
+                Tips
+                <button class="delete"></button>
+              </div>
+              <div class="message-body">
+                <ul>
+                    <li>
+                        1: 只要你保持项目名字一样,即可以多次上传,修/覆改项目文件
+                    <li>
+                        2: 暂不支持除了<strong class="tag has-text-danger">zip</strong>以外的其他压缩包文件
+                    <li>
+                        3: 压缩包内容 请尽可能地保持项目结构如下：<br>
+                        <img src="{% static 'show/img/demo.png' %}" class="img">
+                     <li>
+                        4: 主html文件请重命名为
+                            <strong class="tag has-text-danger">index.html</strong>
+                    </div>
+                    </li>
+
+                </ul>                        
+              </div>
+            </article>        
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var file = document.getElementById("id_uploadfile");
+    file.onchange = function(){
+        if(file.files.length > 0) {
+          document.getElementById('filename').innerHTML = file.files[0].name;
+        }
+    };
+</script>
 </div>
 
 {% endblock %}

@@ -109,6 +109,7 @@ class UploadForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'input',
+                'id': 'file',
                 'type':'text',
                 'placeholder': "eg: 简历"
             }
@@ -119,6 +120,7 @@ class UploadForm(forms.Form):
         label='项目文件',
         widget=forms.FileInput(
             attrs={
+                'class': 'file-input',
                 'multiple':"multiple",
             }
             )

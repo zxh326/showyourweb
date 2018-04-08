@@ -4,7 +4,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{title}}</title>
+    {% block title %}
+        <title>{{title}}</title>
+    {% endblock %}
     <link href="https://cdn.bootcss.com/bulma/0.6.2/css/bulma.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static "show/css/main.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "show/css/font-awesome.min.css" %}">
@@ -22,7 +24,7 @@
         <nav class="navbar is-transparent">
             <div class="container">
                 <div class="navbar-brand">
-                    <a class="navbar-item" href="/#">正义的</a>
+                    <a class="navbar-item" href="/#">********项目</a>
                     <div class="navbar-burger burger is-active" onclick="toggleClass(this, 'is-active')">
                         <span></span>
                         <span></span>
