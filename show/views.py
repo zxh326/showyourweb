@@ -1,6 +1,6 @@
 import os
 from show.form import *
-from show.models import UserFiles
+from show.models import UserFiles,UserUp
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -93,7 +93,7 @@ def logout_view(request):
 def upload_view(request):
     context = {}
     def handle_upload_files(file, path):
-        allow_files = ['zip', 'html', 'js', 'css', 'htm', 'img', 'png', 'jpg']
+        allow_files = ['zip', 'rar', 'html', 'js', 'css', 'htm', 'img', 'png', 'jpg']
         if str(file).split('.')[-1] not in allow_files:
             return False
 
@@ -111,11 +111,16 @@ def upload_view(request):
                 import zipfile
                 with zipfile.ZipFile(str(file),'r') as f:
                     f.extractall()
-
+            elif str(file).split('.')[-1] == allow_files[1]:
+                os.chdir(path)
+                import rarfile
+                with rarfile.RarFile(str(file),'r') as f:
+                    f.extractall()
             os.chdir(old_path)
             # end unzip
             return True
-        except Exception:
+        except Exception as e:
+            print(e)
             os.chdir(old_path)
             return False
 
@@ -143,7 +148,7 @@ def upload_view(request):
            context = {
                 'form': UploadForm(), 
                 'status': False, 
-                'message': '上传失败,此文件不在上传范围之内'
+                'message': '上传失败,此文件不在上传范围之内或是文件错误，请联系管理员'
            } 
     else:
         context = {'form': UploadForm(), 'status': True}
@@ -175,11 +180,7 @@ def share_view(request, name=None, pname=None):
         info = []
         info_pool = UserFiles.objects.filter(is_ective=0)
         for i in info_pool:
-            info.append({'id': i.id,
-                         'name': i.user.last_name,
-                         'pname': i.project_name, 
-                         'time': i.last_submit_time,
-                         'url':i.file_path})
+            info.append(i.info())
 
         context = {
             'info':info,
@@ -219,10 +220,11 @@ def edit_view(request):
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
+        #保证唯一id不变
         save_flag  = request.POST['username'] == request.user.username
+        
         if save_flag and user_form.is_valid():
             user_form.save()
-            print (save_flag)
             context = {
                 'user_form': user_form,
                 'editflag': False,
@@ -240,3 +242,36 @@ def edit_view(request):
             'editflag': True
         }
     return render(request,'auth/edit.html', context)
+
+
+@login_required(login_url='/auth/login')
+def up_view(request):
+    """
+    TODO
+    """
+    pid = request.GET.get('pid',0)
+    result = {}
+    print (pid)
+    try:
+        project = UserFiles.objects.get(id=pid)
+    except Exception as e:
+        raise e
+        result = {'status': -1}
+        return JsonResponse(result)
+
+    try:
+        uu = UserUp.objects.get(project_id=project, up_user=request.user)
+        uu.delete()
+        # down / 取消点赞
+        project.up_count -= 1 
+        result = {'status': 1, 'upcount': project.up_count}
+    except Exception:
+        UserUp(project_id=project, up_user=request.user).save()
+        # up
+        project.up_count += 1
+        result = {'status': 0,'upcount': project.up_count}
+    project.save()
+
+    if result['upcount'] <= 0:
+        result.pop('upcount')
+    return JsonResponse(result)

@@ -32,11 +32,11 @@
             预览
           </a>
           <!-- &#12288; -->
-          <a class="button is-primary" href="#" id="div_toast" onclick="showtoastFromDiv()">
-            点赞
+          <a class="button is-primary" onclick="updiv({{i.id}})">
+            <i class="fa fa-thumbs-o-up" id="upstatus_{{i.id}}">&#12288;{{ i.upcount }}</i>
           </a>
           {% if user.is_superuser %}
-            <a class="button is-outline" onclick="active({{i.id}})">
+            <a class="button is-outline is-rounded" onclick="active({{i.id}})">
               删除
             </a>
           {% endif %}
@@ -84,12 +84,21 @@
                 location.reload(true);
         });
     }
-    function showtoastFromDiv(){
-      $('#div_toast').show();
-      $('#div_toast').toast({
-        content: 'text',
-        duration: 1000
-     })
+    function updiv(pid){
+        {% if user.is_authenticated %}
+        {% else %}
+          window.location.href="{% url 'login' %}"; 
+        {% endif %}
+        $.get("{% url 'up' %}", {'pid':pid},
+            function(data){
+                if (data.status == 0){
+                  $("#upstatus_" + pid).attr("class", "fa fa-thumbs-up");
+                  $("#upstatus_" + pid).html(data.upcount);
+                }
+                else if (data.status == 1){
+                  $("#upstatus_" + pid).attr("class", "fa fa-thumbs-o-up");
+                }
+        });
     }
 </script>
 </div>
