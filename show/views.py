@@ -23,7 +23,8 @@ def index(request):
     info = []
     info_pool = UserFiles.objects.filter(is_ective=0)[:10]
     for i in info_pool:
-        info.append({'name': i.user.last_name,
+        info.append({'pid': i.id,
+                     'name': i.user.last_name,
                      'pname': i.project_name, 
                      'time': i.last_submit_time})
     context = {
@@ -178,10 +179,16 @@ def project_view(request):
 def share_view(request, name=None, pname=None):
     if name == None:
         info = []
+        up_pool = []
         info_pool = UserFiles.objects.filter(is_ective=0)
+        if request.user.is_authenticated:    
+            up_pool = [i.project_id.id for i in UserUp.objects.filter(up_user=request.user)]
+        print (up_pool)
         for i in info_pool:
-            info.append(i.info())
-
+            t_info = i.info()
+            t_info['upflag'] = i.id in up_pool
+            info.append(t_info)
+        print (info)
         context = {
             'info':info,
         }

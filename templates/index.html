@@ -118,8 +118,8 @@
           <a class="level-item" href="#">
             <i class="fa fa-reply" aria-hidden="true"></i>
           </a>
-          <a class="level-item" href="#">
-            <i class="fa fa-heart"  aria-hidden="true"></i>
+          <a class="level-item" onclick="ondiv({{i.pid}})">
+            <i class="fa fa-heart-o"  aria-hidden="true" id="upstatus_{{i.pid}}"></i>
           </a> 
       </div>
       </nav>
@@ -129,5 +129,24 @@
 {% endfor %}
 
 </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function ondiv(pid){
+      {% if user.is_authenticated %}
+      {% else %}
+        window.location.href="{% url 'login' %}"; 
+      {% endif %}
+      $.get("{% url 'up' %}", {'pid':pid},
+          function(data){
+              if (data.status == 0){
+                $("#upstatus_" + pid).attr("class", "fa fa-heart");
+              }
+              else if (data.status == 1){
+                $("#upstatus_" + pid).attr("class", "fa fa-heart-o");
+              }
+      });
+    }
+</script>
 </div>
 {% endblock %}

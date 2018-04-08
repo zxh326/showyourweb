@@ -32,8 +32,13 @@
             预览
           </a>
           <!-- &#12288; -->
-          <a class="button is-primary" onclick="updiv({{i.id}})">
-            <i class="fa fa-thumbs-o-up" id="upstatus_{{i.id}}">&#12288;{{ i.upcount }}</i>
+             <a class="button is-danger" onclick="updiv({{i.id}})">
+            {% if i.upflag %}
+              <i class="fa fa-thumbs-up" id="upstatus_{{i.id}}"></i>
+            {% else %}
+              <i class="fa fa-thumbs-o-up" id="upstatus_{{i.id}}"></i>
+            {% endif %}
+              <span class="tag is-danger" id="upcount_{{i.id}}">{{i.upcount}}</span>
           </a>
           {% if user.is_superuser %}
             <a class="button is-outline is-rounded" onclick="active({{i.id}})">
@@ -93,10 +98,11 @@
             function(data){
                 if (data.status == 0){
                   $("#upstatus_" + pid).attr("class", "fa fa-thumbs-up");
-                  $("#upstatus_" + pid).html(data.upcount);
+                  $("#upcount_" + pid).html(data.upcount);
                 }
                 else if (data.status == 1){
                   $("#upstatus_" + pid).attr("class", "fa fa-thumbs-o-up");
+                  $("#upcount_" + pid).html(data.upcount);
                 }
         });
     }
