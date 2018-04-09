@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -40,7 +43,7 @@ class UserFiles(models.Model):
         verbose_name='文件',
     )
     last_submit_time = models.DateTimeField(
-        auto_now=True
+        default=timezone.now
     )
     submit_count = models.IntegerField(
         default=1
@@ -48,6 +51,11 @@ class UserFiles(models.Model):
     up_count = models.IntegerField(
         default=0
     )
+
+    def save(self, auto_now=True):
+        if auto_now:
+            self.last_submit_time = datetime.now()
+        super().save()
 
 
 class UserUp(models.Model):

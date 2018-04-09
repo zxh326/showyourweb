@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block title %}
+    <title>{{title}}</title>
+{% endblock %}
 {% block content %}
  <div class="hero-body">
     <div class="container">
@@ -13,7 +16,7 @@
                           <span class="tag is-success">测试版</span>
                         </div>
                       </div>
-                        <h3 class="title">**项目展示平台 😲</h3>
+                        <h3 class="title">人机交互项目项目展示平台 😲</h3>
                     </header>
                 <div class="block bd-book-description is-size-9">
                     <p>截止到目前已有 <strong><span class="tag">{{ pcount }} </span></strong>人提交<br>
@@ -115,11 +118,15 @@
       </div>
       <nav class="level is-mobile">
         <div class="level-left">
-          <a class="level-item" href="#">
+          <a class="level-item" href="/usr/share{{i.url}}" target="view_window" >
             <i class="fa fa-reply" aria-hidden="true"></i>
           </a>
-          <a class="level-item" onclick="ondiv({{i.pid}})">
-            <i class="fa fa-heart-o"  aria-hidden="true" id="upstatus_{{i.pid}}"></i>
+          <a class="level-item" onclick="ondiv({{i.id}})">
+            {% if i.upflag %}
+              <i class="fa fa-heart"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
+            {% else %}
+              <i class="fa fa-heart-o"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
+            {% endif %}
           </a> 
       </div>
       </nav>

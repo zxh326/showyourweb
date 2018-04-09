@@ -20,15 +20,21 @@ def index(request):
         pcount += 1
         scount += i.count
         count += i.sum
+    
     info = []
     info_pool = UserFiles.objects.filter(is_ective=0)[:10]
+    
+    up_pool = []
+    if request.user.is_authenticated:    
+        up_pool = [i.project_id.id for i in UserUp.objects.filter(up_user=request.user)]
+
     for i in info_pool:
-        info.append({'pid': i.id,
-                     'name': i.user.last_name,
-                     'pname': i.project_name, 
-                     'time': i.last_submit_time})
+        t_info = i.info()
+        t_info['upflag'] = i.id in up_pool
+        info.append(t_info)
+
     context = {
-        'title': 'Test', 
+        'title': '人机交互项目展示中心', 
         'count': count, 
         'pcount': pcount, 
         'scount': scount, 
@@ -183,12 +189,12 @@ def share_view(request, name=None, pname=None):
         info_pool = UserFiles.objects.filter(is_ective=0)
         if request.user.is_authenticated:    
             up_pool = [i.project_id.id for i in UserUp.objects.filter(up_user=request.user)]
-        print (up_pool)
+
         for i in info_pool:
             t_info = i.info()
             t_info['upflag'] = i.id in up_pool
             info.append(t_info)
-        print (info)
+
         context = {
             'info':info,
         }
@@ -258,7 +264,7 @@ def up_view(request):
     """
     pid = request.GET.get('pid',0)
     result = {}
-    print (pid)
+
     try:
         project = UserFiles.objects.get(id=pid)
     except Exception as e:
@@ -277,8 +283,9 @@ def up_view(request):
         # up
         project.up_count += 1
         result = {'status': 0,'upcount': project.up_count}
-    project.save()
+    project.save(auto_now=False)
 
     if result['upcount'] <= 0:
         result.pop('upcount')
+    print (result)
     return JsonResponse(result)
