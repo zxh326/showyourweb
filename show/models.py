@@ -13,19 +13,12 @@ class UserFiles(models.Model):
         ordering = ['-last_submit_time']
     def info(self):
         result = {}
-        if self.up_count <=0:
-            result = {'id': self.id,
-                      'name': self.user.last_name,
-                      'pname': self.project_name, 
-                      'time': self.last_submit_time,
-                      'url': self.file_path}
-        else:
-            result = {'id': self.id,
-                      'name': self.user.last_name,
-                      'pname': self.project_name, 
-                      'time': self.last_submit_time,
-                      'url': self.file_path,
-                      'upcount': self.up_count}
+        result = {'id': self.id,
+                  'name': self.user.last_name,
+                  'pname': self.project_name, 
+                  'time': self.last_submit_time,
+                  'url': self.file_path,
+                  'upcount': self.up_count}
         return result
 
     user = models.ForeignKey(

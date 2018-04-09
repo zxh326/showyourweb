@@ -4,11 +4,11 @@
 {% endblock %}
 {% block content%}
 
-<div class="hero-body">
+
 <div class="container">
-      <div class="intro-columns">
-        <div class="intro-column is-video  is-flex-mobile">
-            <div class="bd-book-content is-flex-mobile">
+      <div class="columns ">
+        <div class="column is-content is-offset-one-quarter">
+            <div class="bd-book-content">
                 <header class="block bd-book-header">
                     <strong class="tag is-info">注册,然后成为一只猫</strong>
 
@@ -28,8 +28,8 @@
                             </p>
                         {% endfor %}
                        <div class="control">
-                        {# <button type="submit" class="button is-primary is-outlined">登录！</button> #}
                          <button class="button is-success is-big" type="submit">注册</button>
+                         <button class="button is-outline is-big" type="reset">重置</button>
                        </div>  
                         
                     </form>
@@ -37,6 +37,6 @@
             </div>
         </div>
     </div>
-</div>
+
 </div>
 {% endblock %}

@@ -34,11 +34,15 @@
           <!-- &#12288; -->
              <a class="button is-danger" onclick="updiv({{i.id}})">
             {% if i.upflag %}
-              <i class="fa fa-thumbs-up" id="upstatus_{{i.id}}"></i>
+              <i class="fa fa-thumbs-up" id="upstatus_{{i.id}}"> 已赞 </i>
             {% else %}
-              <i class="fa fa-thumbs-o-up" id="upstatus_{{i.id}}"></i>
+              <i class="fa fa-thumbs-o-up" id="upstatus_{{i.id}}"> 赞 </i>
             {% endif %}
-              <span class="tag is-danger" id="upcount_{{i.id}}">{{i.upcount}}</span>
+            <i id="upcount_{{i.id}}">
+            {% ifnotequal  i.upcount 0 %}
+              +{{i.upcount}}
+            {% endifnotequal %}
+            </i>
           </a>
           {% if user.is_superuser %}
             <a class="button is-outline is-rounded" onclick="active({{i.id}})">
@@ -98,11 +102,23 @@
             function(data){
                 if (data.status == 0){
                   $("#upstatus_" + pid).attr("class", "fa fa-thumbs-up");
-                  $("#upcount_" + pid).html(data.upcount);
+                  $("#upstatus_" + pid).html(" 已赞");
+                  if (data.upcount != 0){
+                    $("#upcount_" + pid).html("+"+data.upcount);  
+                  }
+                  else{
+                    $("#upcount_" + pid).html(""); 
+                  }
                 }
                 else if (data.status == 1){
                   $("#upstatus_" + pid).attr("class", "fa fa-thumbs-o-up");
-                  $("#upcount_" + pid).html(data.upcount);
+                  $("#upstatus_" + pid).html(" 赞");
+                  if (data.upcount != 0){
+                    $("#upcount_" + pid).html("+"+data.upcount);  
+                  }
+                  else{
+                    $("#upcount_" + pid).html(""); 
+                  }
                 }
         });
     }

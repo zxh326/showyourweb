@@ -7,9 +7,19 @@
   background-color: white;
   -webkit-box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
   box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
-  max-width: 520px;
+  max-width: 520px; 
   padding: 3rem;
 }
+
+.bd-book-o-content {
+  background-color: white;
+  -webkit-box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 40px 40px -20px rgba(10, 10, 10, 0.1);
+  max-width: 520px;
+  padding: 3rem;
+
+}
+
 .intro-content {
   margin-left: auto;
   margin-right: auto;
@@ -30,8 +40,8 @@
 .intro-column.is-content {
   margin-right: 1.5rem;
 }
-.intro-column.is-video {
-  margin-left: 1.5rem;
+.column.is-content {
+  margin-right: 1.5rem;
 }
 .intro-title {
   font-size: 2.25rem;
@@ -50,6 +60,7 @@
 .container {
   margin: 0 auto;
   position: relative;
+  diaplay: flex;
 }
 .hero-body {
   -webkit-box-flex: 1;

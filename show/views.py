@@ -194,7 +194,6 @@ def share_view(request, name=None, pname=None):
             t_info = i.info()
             t_info['upflag'] = i.id in up_pool
             info.append(t_info)
-
         context = {
             'info':info,
         }
@@ -285,7 +284,4 @@ def up_view(request):
         result = {'status': 0,'upcount': project.up_count}
     project.save(auto_now=False)
 
-    if result['upcount'] <= 0:
-        result.pop('upcount')
-    print (result)
     return JsonResponse(result)

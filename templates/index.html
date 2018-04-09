@@ -1,159 +1,159 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title %}
-    <title>{{title}}</title>
+        <title>{{title}}</title>
 {% endblock %}
 {% block content %}
  <div class="hero-body">
-    <div class="container">
-          <div class="intro-columns">
-            <div class="intro-column is-video">
-                <div class="bd-book-content">
-                    <header class="block bd-book-header">
-                      <div class="control">
-                        <div class="tags has-addons">
-                          <span class="tag is-info">New</span>
-                          <span class="tag is-success">测试版</span>
+        <div class="container">
+                    <div class="columns is-desktop is-flex-tablet-only">
+                        <div class="column is-video">
+                                <div class="bd-book-content">
+                                        <header class="block bd-book-header">
+                                            <div class="control">
+                                                <div class="tags has-addons">
+                                                    <span class="tag is-info">New</span>
+                                                    <span class="tag is-success">测试版</span>
+                                                </div>
+                                            </div>
+                                                <h3 class="title">人机交互项目项目展示平台😲</h3>
+                                        </header>
+                                        <p class="subtitle is-6 has-text-grey">本项目代码地址在<a href="https://github.com/zxh326/showyourweb" class="tag" target="view_window">github</a>共享，欢迎有兴趣的同学一起参与</p>
+                                <div class="block bd-book-description is-size-9">
+                                        <p>截止到目前已有 <strong><span class="tag">{{ pcount }} </span></strong>人提交<br>
+                                        共提交项目 <strong> <span class="tag">{{ scount }} </span></strong> 个, 共计<strong> <span class="tag">{{ count }} </span> </strong> 次</p>
+                                </div>
+                                <div class="bd-book-tags">
+                                        <div class="field is-grouped is-grouped-multiline">
+                                                <div class="control">
+                                                        <span class="tag is-white has-text-grey is-paddingless">你可以上传:</span>
+                                        </div>
+                                        <div class="control">
+                                                <div class="tags has-addons">
+                                                        <strong class="tag has-text-danger">zip/rar</strong>
+                                                </div>
+                                        </div>
+                                        <div class="control">
+                                                <div class="tags has-addons">
+                                                        <strong class="tag has-text-info">html</strong>
+                                                </div>
+                                        </div>
+                                        <div class="control">
+                                                <div class="tags has-addons">
+                                                        <strong class="tag has-text-success">css</strong>
+                                                </div>
+                                        </div>
+                                        <div class="control">
+                                                <span class="tag is-white has-text-grey is-paddingless">or</span>
+                                         </div>
+                                        <div class="control">
+                                                <div class="tags has-addons">
+                                                <strong class="tag has-text-orange">js</strong>
+                                                </div>
+                                        </div>
+                                     </div>
+                                </div>
+                                </div>
                         </div>
-                      </div>
-                        <h3 class="title">人机交互项目项目展示平台 😲</h3>
-                    </header>
-                <div class="block bd-book-description is-size-9">
-                    <p>截止到目前已有 <strong><span class="tag">{{ pcount }} </span></strong>人提交<br>
-                    共提交项目 <strong> <span class="tag">{{ scount }} </span></strong> 个, 共计<strong> <span class="tag">{{ count }} </span> </strong> 次</p>
-                </div>
-                <div class="bd-book-tags">
-                    <div class="field is-grouped is-grouped-multiline">
-                        <div class="control">
-                            <span class="tag is-white has-text-grey is-paddingless">你可以上传:</span>
-                    </div>
-                    <div class="control">
-                        <div class="tags has-addons">
-                            <strong class="tag has-text-danger">zip</strong>
-                        </div>
-                    </div>
-                    <div class="control">
-                        <div class="tags has-addons">
-                            <strong class="tag has-text-info">html</strong>
-                        </div>
-                    </div>
-                    <div class="control">
-                        <div class="tags has-addons">
-                            <strong class="tag has-text-success">css</strong>
-                        </div>
-                    </div>
-                    <div class="control">
-                        <span class="tag is-white has-text-grey is-paddingless">or</span>
-                     </div>
-                    <div class="control">
-                        <div class="tags has-addons">
-                        <strong class="tag has-text-orange">js</strong>
-                        </div>
-                    </div>
-                   </div>
-                </div>
-                </div>
-            </div>
-    <div class="intro-column is-content">
-        <br>
-        <br>
-        <div class="intro-content">
-        <h1 class="title intro-title">
-            {% if user.is_authenticated %}
-                <p> 欢迎 {{user.last_name}} </p>
-            {% else %}
-                <p> 请登录 !</p>
-            {% endif %}
-        </h1>
-        <h2 class="title intro-title">
-            你可以提交自己的<strong>web项目</strong>,<br>     或者浏览其他人的项目
+        <div class="column is-content">
+                <br>
+                <br>
+                <div class="intro-content">
+                <h1 class="title intro-title">
+                        {% if user.is_authenticated %}
+                                <p> 欢迎 {{user.last_name}} </p>
+                        {% else %}
+                                <p> 请登录 !</p>
+                        {% endif %}
+                </h1>
+                <h2 class="title intro-title">
+                        <p class="subtitle is-6 has-text-grey">在这里，你可以管理提交自己的web项目, </br>或者浏览其他人的项目，并为自己喜欢的项目点赞</p>
 
-        </h2>
-        
-        <nav class="intro-buttons">
-          
-          <div class="bd-more-loves">
-              <p class="bd-more-loves-container">
-                    {% if user.is_authenticated %}
-                        <a class="button is-medium is-success bd-rainbow" href="{% url "upload" %}">
-                            <span><strong> 提交</strong></span>
-                        </a>
-                    {% else %}
-                        <a class="button is-medium is-success bd-rainbow" href="{% url "login" %}">
-                            <span><strong> 登陆/注册 </strong></span>
-                        </a>
-                    {% endif %}
-              </p>
-              <div class="hiden">&#12288;&#12288; </div>
-              <p class="bd-more-loves-container">
-                <a class="button is-medium is-danger bd-rainbow" href="{% url "sall" %}">
-                  <span> 浏览其他人的 <strong>项目</strong> 🤗</span>
-                </a>
-              </p>
+
+                </h2>
+                
+                <nav class="intro-buttons">
+                    
+                    <div class="bd-more-loves">
+                            <p class="bd-more-loves-container">
+                                        {% if user.is_authenticated %}
+                                                <a class="button is-medium is-success bd-rainbow" href="{% url "upload" %}">
+                                                        <span><strong> 提交</strong></span>
+                                                </a>
+                                        {% else %}
+                                                <a class="button is-medium is-success bd-rainbow" href="{% url "login" %}">
+                                                        <span><strong> 登陆/注册 </strong></span>
+                                                </a>
+                                        {% endif %}
+                            </p>
+                            <div class="hiden">&#12288;&#12288; </div>
+                            <p class="bd-more-loves-container">
+                                <a class="button is-medium is-danger bd-rainbow" href="{% url "sall" %}">
+                                    <span> 浏览其他人的 <strong>项目</strong> 🤗</span>
+                                </a>
+                            </p>
+                        </div>
+                </nav>
             </div>
-        </nav>
-      </div>
-    </div>
+        </div>
  </div>
-</div>
-</div>
 
-<div class="container">
-<div class="column is-8">
-{% for i in info %} 
-<div class="box">
-  <article class="media">
-    <div class="media-left">
-      <figure class="image is-64x64">
-            <img src="{% static 'show/img/default.jpg' %}" alt="Image">
-      </figure>
-    </div>
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <strong>@{{i.name}}</strong> <small>{{ i.time }}</small> <small></small>
-          <br>
-          向他的  <strong> <span class="tag is-info"> {{i.pname }} </span> </strong> 项目提交了一次修改
-        </p>
-      </div>
-      <nav class="level is-mobile">
-        <div class="level-left">
-          <a class="level-item" href="/usr/share{{i.url}}" target="view_window" >
-            <i class="fa fa-reply" aria-hidden="true"></i>
-          </a>
-          <a class="level-item" onclick="ondiv({{i.id}})">
-            {% if i.upflag %}
-              <i class="fa fa-heart"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
-            {% else %}
-              <i class="fa fa-heart-o"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
-            {% endif %}
-          </a> 
-      </div>
-      </nav>
-    </div>
-  </article>
-</div>
-{% endfor %}
+ <span class="tag is-info center is-rounded">近期提交记录</span>
+<br><br>
+ {% for i in info %} 
+     <div class="box column is-8">
+         <article class="media">
+             <div class="media-left">
+                 <figure class="image is-64x64">
+                             <img src="{% static 'show/img/default.jpg' %}" alt="Image">
+                 </figure>
+             </div>
+             <div class="media-content">
+                 <div class="content">
+                     <p>
+                         <strong>@{{i.name}}</strong> <small>{{ i.time }}</small> <small></small>
+                         <br>
+                         向他的  <strong> <span class="tag is-info"> {{i.pname }} </span> </strong> 项目提交了一次修改
+                     </p>
+                 </div>
+                 <nav class="level is-mobile">
+                     <div class="level-left">
+                         <a class="level-item" href="/usr/share{{i.url}}" target="view_window" >
+                             <i class="fa fa-reply" aria-hidden="true"></i>
+                         </a>
+                         <a class="level-item" onclick="ondiv({{i.id}})">
+                             {% if i.upflag %}
+                                 <i class="fa fa-heart"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
+                             {% else %}
+                                 <i class="fa fa-heart-o"  aria-hidden="true" id="upstatus_{{i.id}}"></i>
+                             {% endif %}
+                         </a> 
+                 </div>
+                 </nav>
+             </div>
+         </article>
+     </div>
+     {% endfor %}
+ </div>
 
 </div>
-
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function ondiv(pid){
-      {% if user.is_authenticated %}
-      {% else %}
-        window.location.href="{% url 'login' %}"; 
-      {% endif %}
-      $.get("{% url 'up' %}", {'pid':pid},
-          function(data){
-              if (data.status == 0){
-                $("#upstatus_" + pid).attr("class", "fa fa-heart");
-              }
-              else if (data.status == 1){
-                $("#upstatus_" + pid).attr("class", "fa fa-heart-o");
-              }
-      });
-    }
+        function ondiv(pid){
+            {% if user.is_authenticated %}
+            {% else %}
+                window.location.href="{% url 'login' %}"; 
+            {% endif %}
+            $.get("{% url 'up' %}", {'pid':pid},
+                function(data){
+                    if (data.status == 0){
+                        $("#upstatus_" + pid).attr("class", "fa fa-heart");
+                    }
+                    else if (data.status == 1){
+                        $("#upstatus_" + pid).attr("class", "fa fa-heart-o");
+                    }
+            });
+        }
 </script>
 </div>
 {% endblock %}

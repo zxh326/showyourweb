@@ -7,8 +7,8 @@
 <div class="hero-body">
 <div class="container">
       <div class="intro-columns">
-        <div class="intro-column is-video">
-            <div class="bd-book-content">
+        <div class="column is-content is-offset-one-quarter">
+            <div class="bd-book-o-content">
                 <header class="block bd-book-header">
                     <strong class="tag is-info">请登录</strong>
                     <form action="{% url 'login' %}" method="POST">
@@ -31,7 +31,7 @@
                         {%else%}
                             <p class="help is-danger">{{message}}</p>
                         {% endif %}
-                       <div class="control">
+                       <div class="control is-mobile">
                         <input type="hidden" name="next" value="{{ next }}" />
                          <button class="button is-success" type="submit">登陆</button>
                         <a href="{% url 'reg' %}" class="button is-info">注册</a>
