@@ -1,5 +1,4 @@
 # ShowYourWeb 
-![Build Status](https://travis-ci.org/imWildCat/sogou-translate.svg?branch=master)
 
 [Demo](https://lab.zxh326.cn)
 ## 开发环境
