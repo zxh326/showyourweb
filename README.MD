@@ -18,4 +18,5 @@
 ## License
 
 The code is licensed under DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE. For more details, read the [LICENSE](./LICENSE) file.
+
 你他妈的想干嘛就干嘛公共许可证
