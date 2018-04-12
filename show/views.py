@@ -117,13 +117,14 @@ def upload_view(request):
                 os.chdir(path)
                 import zipfile
                 with zipfile.ZipFile(str(file),'r') as f:
-                    f.extractall()
-            elif str(file).split('.')[-1] == allow_files[1]:
-                os.chdir(path)
-                import rarfile
-                with rarfile.RarFile(str(file),'r') as f:
-                    f.extractall()
-            os.chdir(old_path)
+                    for i in f.namelist():
+                        new_name = ''
+                        try:
+                            new_name = i.encode('cp437').decode('gbk')
+                        except:
+                            new_name = i.encode('utf-8').decode('utf-8')
+                        f.extract(i)
+                        os.rename(i,new_name)
             # end unzip
             return True
         except Exception as e:
