@@ -1,7 +1,6 @@
 # ShowYourWeb 
-![Build Status](https://travis-ci.org/imWildCat/sogou-translate.svg?branch=master)
 
-[Demo](https://lab.zxh326.cn)
+[Demo](http://e.dnuise.cn/)
 ## 开发环境
 * 后端语言 :[python](https://www.python.org/)>=3.6, [django](https://www.djangoproject.com/) >= 2.0
 * 前端框架 :[Bulma](https://bulma.io/) >= 0.6.2
@@ -11,9 +10,12 @@
 - [x] 上传/分享
 - [x] 预览
 - [x] 点赞
+- [ ] 点赞记录
+- [ ] 排行榜
+- [ ] 移动端优化
+- [ ] 被点赞通知
 - [ ] 完整的项目管理
 - [ ] Java web 支持
-- [ ] 通知
 
 ## License
 
