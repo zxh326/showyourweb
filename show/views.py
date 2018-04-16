@@ -1,4 +1,5 @@
 import os
+import time
 from show.form import *
 from show.models import UserFiles,UserUp
 from django.shortcuts import render
@@ -271,7 +272,6 @@ def up_view(request):
         raise e
         result = {'status': -1}
         return JsonResponse(result)
-
     try:
         uu = UserUp.objects.get(project_id=project, up_user=request.user)
         uu.delete()
@@ -284,5 +284,5 @@ def up_view(request):
         project.up_count += 1
         result = {'status': 0,'upcount': project.up_count}
     project.save(auto_now=False)
-
+ 
     return JsonResponse(result)
