@@ -87,7 +87,7 @@
         ele.className = ele.className.replace(reg, "");
     }
     function deletet(ele){
-        var pid = ele.value;
+        let pid = ele.value;
         $.get("{% url 'delete' %}", {'pid':pid},
             function(data){
                 location.reload(true);

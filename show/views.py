@@ -200,12 +200,26 @@ def share_view(request, name=None, pname=None):
             'info':info,
         }
         return render(request, 'sall.html', context)
-    else:    
-        context = {
-            'title': pname + '  --预览',
-            'name': name,
-            'pname' : pname
-        }
+    else:
+        path = os.path.join(
+            STATICFILES_DIRS[0], 'show', 'share', name, pname)
+        if os.path.exists(os.path.join(path, 'index.html')):
+            context = {
+                'title': pname + '  --预览',
+                'name': name,
+                'pname' : pname,
+                'html': 'index.html'
+            }
+        else:
+            for i in os.listdir(path):
+                if str(i).endswith('.html'):
+                    break
+            context = {
+                'title': pname + '  --预览',
+                'name': name,
+                'pname' : pname,
+                'html': i
+            }
         return render(request, 'share.html', context)
 
 
