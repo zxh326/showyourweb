@@ -6,82 +6,81 @@
 {% block content %}
 <div class="hero-body">
 <div class="container">
-      <div class="intro-columns">
+    <div class="intro-columns">
         <div class="column is-content is-5 is-desktop">
             <div class="bd-book-content">
                 <header class="block bd-book-header">
-                    
                     <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" accept-charset="utf-8" >
-                        {% csrf_token %}
+                       {% csrf_token %}
                         <div class="field">
-                          <label class="label">项目名称</label>
-                          <div class="control">
-                                {{ form.uploadname }}
-                          </div>
-                        </div>
-                        
-                        <div class="field">
-                          <div class="file is-left is-info">
-                            <label class="file-label">
-                                {{form.uploadfile}}
-                              <span class="file-cta">
-                                <span class="file-icon">
-                                  <i class="fa fa-upload"></i>
-                                </span>
-                                <span class="file-label">
-                                  上传文件
-                                </span>
-                              </span>
-                              <span class="file-name" id="filename">
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        {% if not status %}
-                          <p class="notification is-danger">
-                              <strong>
-                                {{ message }}
-                              </strong>
-                          </p>
-                        {% endif %}
-                       <div class="control">
-                            <button class="button is-success is-focused" type="submit">
-                              <span class="icon is-small">
-                                <i class="fa fa-check"></i>
-                              </span>
-                              <span>上传</span>
-                            </button>
-                            &#12288;
-                            <a class="button is-info" href="{% url "project" %}">我的项目</a>
-                       </div>    
-                    </form>
-                </header>
-            </div>
-        </div>
-        <div class="column is-5 is-content">
-            <article class="message is-info">
-              <div class="message-header">
-                Tips
-                <button class="delete"></button>
-              </div>
-              <div class="message-body">
-                <ul>
-                    <li class="li">
-                        1: 只要你保持项目名字一样,即可以多次上传,修/覆改项目文件</li>
-                    <li>
-                        2: 暂不支持除了<strong class="tag has-text-danger">zip</strong>以外的其他压缩包文件</li>
-                    <li>
-                        3: 主html文件请重命名为
-                            <strong class="tag has-text-info">index.html</strong>如果没有index.html 会自动寻找项目中第一个html文件</li>
-                    <li>
-                        4: 引用的文件请使用相对目录 即直接引用文件名 或是<strong class="tag has-text-info">./文件名</strong>  <strong class="tag has-text-danger">不要出现 '/文件名'</strong></li>
-                    <li>
-                        5: 压缩包内容 请尽可能地保持项目结构如下：<br>
-                        <img src="{% static 'show/img/demo.png' %}" class="img"></li>  
-                </ul>
-              </div>                       
-            </article>        
-        </div>
+                            <label class="label">项目名称</label>
+                            <div class="control">
+                               {{ form.uploadname }}
+                            </div>
+                       </div>
+                       
+                       <div class="field">
+                         <div class="file is-left is-info">
+                           <label class="file-label">
+                               {{form.uploadfile}}
+                             <span class="file-cta">
+                               <span class="file-icon">
+                                 <i class="fa fa-upload"></i>
+                               </span>
+                               <span class="file-label">
+                                 上传文件
+                               </span>
+                             </span>
+                             <span class="file-name" id="filename">
+                             </span>
+                           </label>
+                         </div>
+                       </div>
+                       {% if not status %}
+                         <p class="notification is-danger">
+                             <strong>
+                               {{ message }}
+                             </strong>
+                         </p>
+                       {% endif %}
+                      <div class="control">
+                           <button class="button is-success is-focused" type="submit">
+                             <span class="icon is-small">
+                               <i class="fa fa-check"></i>
+                             </span>
+                             <span>上传</span>
+                           </button>
+                           &#12288;
+                           <a class="button is-info" href="{% url "project" %}">我的项目</a>
+                      </div>    
+                   </form>
+               </header>
+           </div>
+       </div>
+       <div class="column is-5 is-content">
+           <article class="message is-info">
+             <div class="message-header">
+               Tips
+               <button class="delete"></button>
+             </div>
+             <div class="message-body">
+               <ul>
+                   <li class="li">
+                       1: 只要你保持项目名字一样,即可以多次上传,修/覆改项目文件</li>
+                   <li>
+                       2: 暂不支持除了<strong class="tag has-text-danger">zip</strong>以外的其他压缩包文件</li>
+                   <li>
+                       3: 主html文件请重命名为
+                           <strong class="tag has-text-info">index.html</strong>如果没有index.html 会自动寻找项目中第一个html文件</li>
+                   <li>
+                       4: 引用的文件请使用相对目录 即直接引用文件名 或是<strong class="tag has-text-info">./文件名</strong>  <strong class="tag has-text-danger">不要出现 '/文件名'</strong></li>
+                   <li>
+                       5: 压缩包内容 请尽可能地保持项目结构如下：<br>
+                       <img src="{% static 'show/img/demo.png' %}" class="img"></li>  
+               </ul>
+             </div>                       
+           </article>        
+       </div>
     </div>
 </div>
 

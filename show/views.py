@@ -231,8 +231,11 @@ def delete_view(request, pid=None):
         if request.user == uf.user or request.user.is_superuser:
             uf.is_ective = 1
             uf.save()
-            # uf.delete()
-            # delete files
+            file_path =  uf.file_path.split('/')
+            path = os.path.join(STATICFILES_DIRS[0],'show', 'share',file_path[1], file_path[2])
+            import shutil
+            shutil.rmtree(path)
+            
             return JsonResponse({'status': 0})
         else:
             return JsonResponse({'status': -2})
