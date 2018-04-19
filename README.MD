@@ -1,6 +1,9 @@
 # ShowYourWeb 
 
+![file-list](https://travis-ci.org/zxh326/showyourweb.svg?branch=master)
+
 [Demo](http://e.dnuise.cn/)
+
 ## 开发环境
 * 后端语言 :[python](https://www.python.org/)>=3.6, [django](https://www.djangoproject.com/) >= 2.0
 * 前端框架 :[Bulma](https://bulma.io/) >= 0.6.2
