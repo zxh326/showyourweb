@@ -11,6 +11,11 @@ class UserFiles(models.Model):
         verbose_name = "UserFiles"
         verbose_name_plural = "UserFiless"
         ordering = ['-last_submit_time']
+
+    is_ective_choices = (
+        (0, '活动'),
+        (1, '删除')
+    )
     def info(self):
         result = {}
         result = {'id': self.id,
@@ -26,6 +31,7 @@ class UserFiles(models.Model):
         on_delete=models.CASCADE
     )
     is_ective = models.IntegerField(
+        choices=is_ective_choices,
         default=0
     )
     project_name = models.CharField(
