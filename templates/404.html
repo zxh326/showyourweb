@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+        <title>找不到</title>
+{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+        alert(" 此项目并没有合适的html文件来共享，如果你是此项目作者，请重新上传")
+        window.location.href="/"
+    </script>
+{% endblock %}

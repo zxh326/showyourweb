@@ -185,10 +185,12 @@ def project_view(request):
 
 
 def share_view(request, name=None, pname=None):
+    order_by_l = ["-last_submit_time", "-up_count"]
     if name == None:
         info = []
         up_pool = []
-        info_pool = UserFiles.objects.filter(is_ective=0)
+        order_by = int(request.GET.get('type', 0))
+        info_pool = UserFiles.objects.filter(is_ective=0).order_by(order_by_l[order_by])
         if request.user.is_authenticated:    
             up_pool = [i.project_id.id for i in UserUp.objects.filter(up_user=request.user)]
 
@@ -214,6 +216,8 @@ def share_view(request, name=None, pname=None):
             for i in os.listdir(path):
                 if str(i).endswith('.html'):
                     break
+            if not str(i).endswith('.html'):
+                return render(request,'404.html')
             context = {
                 'title': pname + '  --预览',
                 'name': name,
@@ -303,3 +307,7 @@ def up_view(request):
     project.save(auto_now=False)
  
     return JsonResponse(result)
+
+
+def about_view(request):
+    return render(request, 'about.html')

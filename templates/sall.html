@@ -4,12 +4,14 @@
 {% endblock %}
 {% load staticfiles %}
 {% block content %}
-<br>
-<br>
-<br>
-
 <div class="container">
 <div class="column is-8">
+
+<br>
+<span class="tag is-info center is-rounded" onclick="ordering(0)">按时间排序</span>
+<span class="tag is-danger center is-rounded" onclick="ordering(1)">按热度排序</span>
+<br>
+<br>
 {% for i in info %}
 <div class="box">
   <article class="media">
@@ -92,6 +94,9 @@
             function(data){
                 location.reload(true);
         });
+    }
+    function ordering(order_by){
+        window.location.href = "{% url 'sall' %}?type=" + order_by
     }
     function updiv(pid){
         {% if user.is_authenticated %}
