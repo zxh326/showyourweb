@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 
 class UserFiles(models.Model):
     class Meta:
-        verbose_name = "UserFiles"
-        verbose_name_plural = "UserFiless"
+        verbose_name = "用户文件"
+        verbose_name_plural = "用户文件"
         ordering = ['-last_submit_time']
 
     is_ective_choices = (
