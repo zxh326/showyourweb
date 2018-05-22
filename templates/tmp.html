@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tmp</title>
+</head>
+<body>
+    {% if has %}
+        <form action="/tmp/" method="post" id="an">
+            {% csrf_token %}
+            <br>
+            <textarea name="answer" rows=10 cols=90 autofocus=true>
+            </textarea>
+            <input type="submit" name="">
+        </form>
+    {% else %}
+    {% for i in answer %}
+        <h3> {{ i.quesIndex }} 
+        <span style="color:red">
+        {% for j in i.quesAnswerOption %}
+             {{ j }} 
+        {% endfor %}
+        </span>
+        <br></h3>
+        <hr>
+    {% endfor %}
+
+    {% endif %}
+</body>
+</html>

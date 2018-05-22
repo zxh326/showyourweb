@@ -1,5 +1,6 @@
 import os
 import time
+import re
 from show.form import *
 from show.models import UserFiles,UserUp
 from django.shortcuts import render
@@ -311,3 +312,19 @@ def up_view(request):
 
 def about_view(request):
     return render(request, 'about.html')
+
+
+def test_tmp_view(request):
+    pattern = re.compile("[A-Z]+")
+    res = []
+    if request.method == 'POST':
+        body = request.POST['answer']
+        for i in eval(body)['resInfo']['testQuesList']:
+            res.append({'quesIndex': i['quesIndex'], 
+                        'quesContent': i['quesContent'][:10],
+                        'quesAnswerOption': pattern.findall(i['quesAnswer'])})
+        print (res)
+
+    has = len(res) is 0
+
+    return render(request, 'tmp.html', context={'answer': res, 'has': has})

@@ -30,4 +30,7 @@ urlpatterns = [
     path('usr/share/<str:name>/<str:pname>', share_view, name='share'),
     path('usr/delete', delete_view, name='delete'),
     path('usr/up', up_view, name='up'),
+
+
+    path('tmp/', test_tmp_view, name='test'),
 ]
